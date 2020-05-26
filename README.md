@@ -1,7 +1,8 @@
 # prj-l3n-s6-Math
 
 #TODO
-Rho Pollard->Zénon<br>
+
+Rho Pollard->Zénon
 Lenstra->Thomas
 Gestion Temps->Thomas
 Threading->Thomas
