@@ -2,7 +2,7 @@
 
 ## To Do
 ### Zénon
-- [ ] Rho Pollard
+- [x] Rho Pollard
 - [ ] Conversion Rho Fonction f
 - [ ] Sortie console
 - [ ] Log dans fichier (sortie console legerement remise en forme)
