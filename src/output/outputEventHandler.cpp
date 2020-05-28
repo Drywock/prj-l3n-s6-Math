@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <mutex>
 #include "outputEventHandler.h"
-#include "time/time.h"
+#include "../time/time.h"
 #include "output.h"
 
 OutputEventHandler::OutputEventHandler() {

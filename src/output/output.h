@@ -18,10 +18,10 @@ private:
 	int currentFileLines;
 };
 
-class logWriting {
+class LogWriting {
 public:
-	logWriting();
-	~logWriting();
+	LogWriting();
+	~LogWriting();
 	void writeToLog(std::string content);
 	void setFolderName(std::string folderName);
 private:
@@ -31,23 +31,23 @@ private:
 	int currentFileLines;
 };
 
-class consoleWriting {
+class ConsoleWriting {
 public:
-	consoleWriting();
-	~consoleWriting();
+	ConsoleWriting();
+	~ConsoleWriting();
 	void formatAndWrite(std::string content);
 private:
 };
 
-class outputManager {
+class OutputManager {
 public:
-	outputManager();
-	~outputManager();
+	OutputManager();
+	~OutputManager();
 	void fetchData(int level, std::string content);
 private:
 	CSVWriting _CSVWriting;
-	logWriting _logWriting;
-	consoleWriting _consoleWriting;
+	LogWriting _logWriting;
+	ConsoleWriting _consoleWriting;
 	std::string folderPath;
 };
 

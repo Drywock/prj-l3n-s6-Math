@@ -17,7 +17,7 @@ uint64_t RhoPollard::getDivisor(const uint64_t &n) {
 		x = ((x * x) + std::rand() % (n + 1)) % (n);
 		y = ((y * y) + std::rand() % (n + 1));
 		y = ((y * y) + std::rand() % (n + 1)) % (n);
-		g = gcd(absolute(x - y), n);
+		g = gcd(absoluteDiff(x, y), n);
 	}
 	return g;
 }

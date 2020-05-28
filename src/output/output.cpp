@@ -1,10 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <ctime>
-#include <direct.h>
+// #include <direct.h>
 #include <string>
 #include "output.h"
-#include "time/time.h"
+#include "../time/time.h"
 
 //LEVELS : 	1 is writing to log file and console
 //			2 is writing to CSV only
@@ -103,12 +103,14 @@ OutputManager::OutputManager()
 		std::cout << "naah";
 	}*/
 	std::string folderPath = "./results";
+    /*
 	if (mkdir(folderPath.c_str()) == 0) {
 		//directory created
 	}
 	else {
 		//directory already exists
 	}
+    */
 	OutputManager::_CSVWriting.setFolderName(folderPath);
 	OutputManager::_logWriting.setFolderName(folderPath);
 }
