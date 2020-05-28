@@ -6,6 +6,11 @@
 #include "output.h"
 #include "time/time.h"
 
+//LEVELS : 	1 is writing to log file and console
+//		2 is writing to CSV only
+//		3 is writing to console only
+//		4 is writing to CSV and console
+
 CSVWriting::CSVWriting() {
 	CSVWriting::currentFileIncrement = 1;
 	CSVWriting::currentFileLines = 0;
@@ -123,7 +128,12 @@ void outputManager::fetchData(int level, std::string content)
 	case 2:
 		outputManager::_CSVWriting.writeToCSV(content);
 		break;
-	case 3:outputManager::_consoleWriting.formatAndWrite(content);
+	case 3:
+		outputManager::_consoleWriting.formatAndWrite(content);
+		break;
+	case 3:
+		outputManager::_consoleWriting.formatAndWrite(content);
+		outputManager::_CSVWriting.writeToCSV(content);
 		break;
 	default:outputManager::_consoleWriting.formatAndWrite("Output Manager:error while fetching the data");
 		break;
