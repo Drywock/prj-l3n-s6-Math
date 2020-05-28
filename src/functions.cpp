@@ -63,6 +63,6 @@ uint64_t gcd(uint64_t a, uint64_t b)
 	}
 }
 
-bool absolute(uint64_t a){
+uint64_t absolute(uint64_t a){
 	return (a>0)?a:-a;
 }
