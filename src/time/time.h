@@ -13,46 +13,46 @@ Instrumentor::Get().BeginSession(name)
 
 struct ProfileResult
 {
-    std::string Name;
-    long long Start, End;
-    uint32_t ThreadID;
+	std::string Name;
+	long long Start, End;
+	uint32_t ThreadID;
 };
 
 struct InstrumentationSession
 {
-    std::string Name;
+	std::string Name;
 };
 
 class Instrumentor
 {
 public:
-    Instrumentor();
+	Instrumentor();
 
-    void BeginSession(const std::string& name, const std::string& filepath = "times.json");
-    void EndSession();
+	void BeginSession(const std::string& name, const std::string& filepath = "times.json");
+	void EndSession();
 
-    void WriteProfile(const ProfileResult& result);
-    void WriteHeader();
-    void WriteFooter();
+	void WriteProfile(const ProfileResult& result);
+	void WriteHeader();
+	void WriteFooter();
 
-    static Instrumentor& Get();
+	static Instrumentor& Get();
 
 private:
-    InstrumentationSession* m_CurrentSession;
-    std::ofstream m_OutputStream;
-    int m_ProfileCount;
+	InstrumentationSession* m_CurrentSession;
+	std::ofstream m_OutputStream;
+	int m_ProfileCount;
 };
 
 class InstrumentationTimer
 {
 public:
-    InstrumentationTimer(const char* name);
-    ~InstrumentationTimer();
+	InstrumentationTimer(const char* name);
+	~InstrumentationTimer();
 
-    void Stop();
+	void Stop();
 
 private:
-    const char* m_Name;
-    std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
-    bool m_Stopped;
+	const char* m_Name;
+	std::chrono::time_point<std::chrono::high_resolution_clock> m_StartTimepoint;
+	bool m_Stopped;
 };

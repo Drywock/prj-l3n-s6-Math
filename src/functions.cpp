@@ -3,10 +3,9 @@
 #include <iostream>
 #include <numeric>
 #include <cmath>
-#include <vector> 
+#include <vector>
 #include <algorithm>
 #include <set>
-
 #include "time/time.h"
 
 void calcDividers(std::set<uint64_t> &dividers, const std::vector<uint64_t> &availbleValues, const size_t &depth, const uint64_t &value = 1);
@@ -43,18 +42,30 @@ void calcDividers(std::set<uint64_t> &dividers, const std::vector<uint64_t> &ava
     }
 }
 
-bool isPrime(int n){
-    int max=std::sqrt(n);
-    for(int i=2;i<=max;i++){
-        if((n%i)==0){
-            return false;
-        }
-    }
-    return true;
+bool isPrime(uint64_t n) {
+	uint64_t max = std::sqrt(n);
+	for (uint64_t i = 2; i <= max; i++) {
+		if ((n % i) == 0) {
+			return false;
+		}
+	}
+	return true;
 }
 
-int gcd(int a,int b)
+uint64_t gcd(uint64_t a, uint64_t b)
 {
+
+	if (b == 0) {
+		return a;
+	}
+	else {
+		return gcd(b, a % b);
+	}
+}
+
+bool absolute(uint64_t a){
+	return (a>0)?a:-a;
+}
     if(b==0){
         return a;
     }
