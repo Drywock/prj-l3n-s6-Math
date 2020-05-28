@@ -4,9 +4,9 @@
 ### Zénon
 - [x] Rho Pollard
 - [x] Buffering of data
-- [ ] Sortie console
-- [ ] Log dans fichier (sortie console legerement remise en forme)
-- [ ] formattage sortie en csv (pour le tableau 1er sauvages)
+- [x] Sortie console
+- [x] Log dans fichier (sortie console legerement remise en forme)
+- [x] formattage sortie en csv (pour le tableau 1er sauvages)
 ### Thomas
 - [ ] Lenstra
 - [x] Gestion Temps
