@@ -10,5 +10,5 @@
 - [ ] Lenstra
 - [x] Gestion Temps
 - [ ] Threading
-- [ ] fonction (collection d'entiers) -> calcul de toute les combinaisons puis addition de ces combinaisons
+- [x] fonction (collection d'entiers) -> calcul de toute les combinaisons puis addition de ces combinaisons
 
