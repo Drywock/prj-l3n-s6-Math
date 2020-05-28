@@ -5,15 +5,13 @@
 #include <queue>
 #include <algorithm>
 #include <mutex>
+#include <thread>
 #include "outputEventHandler.h"
 #include "../time/time.h"
 #include "output.h"
 
-OutputEventHandler::OutputEventHandler() {
-	OutputEventHandler::_Buffer;
-}
-
-OutputEventHandler::~OutputEventHandler() {
+void OutputEventHandler::start(){
+	std::thread t(&OutputEventHandler::worker);
 }
 
 void OutputEventHandler::writeDataToBuffer(int level, std::string content) {
@@ -39,8 +37,13 @@ Data OutputEventHandler::readDateFromBuffer() {
 	OutputEventHandler::_Buffer.lock.unlock();
 	return { content, level };
 }
-//TODO
-void OutputEventHandler::catchEventBufferModified() {
-	Data data = readDateFromBuffer();
-	OutputEventHandler::_manager.fetchData(data.level, data.content);
+	
+
+void OutputEventHandler::worker(){
+	do{
+		if(OutputEventHandler::_Buffer.has_been_modified){
+			Data data = readDateFromBuffer();
+			OutputEventHandler::_manager.fetchData(data.level, data.content);
+		}
+	}while(1);
 }

@@ -39,17 +39,14 @@ struct Data {
 
 class OutputEventHandler {
 public:
-	OutputEventHandler();
-	~OutputEventHandler();
+	static void start();
+	static void writeDataToBuffer(int level, std::string content);
+	static Data readDateFromBuffer();
 
-	void writeDataToBuffer(int level, std::string content);
-	Data readDateFromBuffer();
-
-	//TODO
-	void catchEventBufferModified();
 private:
-	Buffer _Buffer;
-	OutputManager _manager;
+	static void worker();
+	static Buffer _Buffer;
+	static OutputManager _manager;
 };
 
 #endif
