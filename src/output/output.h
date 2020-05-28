@@ -4,47 +4,51 @@
 #define MAXLINES 30000
 
 #include <fstream>
-class CSVWriting{
+class CSVWriting {
 public:
-    CSVWriting();
-    ~CSVWriting();
-    void writeToCSV(std::string content);
+	CSVWriting();
+	~CSVWriting();
+	void writeToCSV(std::string content);
+	void setFolderName(std::string folderName);
 private:
 
-    std::ofstream _file;
-    int currentFileIncrement;
-    int currentFileLines;
+	std::ofstream _file;
+	std::string folderPath;
+	int currentFileIncrement;
+	int currentFileLines;
 };
 
-class logWriting{
+class logWriting {
 public:
-    logWriting();
-    ~logWriting();
+	logWriting();
+	~logWriting();
+	void writeToLog(std::string content);
+	void setFolderName(std::string folderName);
 private:
-    int currentFileIncrement;
-    int currentFileLines;
+	std::ofstream _file;
+	std::string folderPath;
+	int currentFileIncrement;
+	int currentFileLines;
 };
 
-class consoleWriting{
+class consoleWriting {
 public:
-    consoleWriting();
-    ~consoleWriting();
-    void formatAndWrite(std::string content){
-
-    }
+	consoleWriting();
+	~consoleWriting();
+	void formatAndWrite(std::string content);
 private:
-
 };
 
-class outputManager{
+class outputManager {
 public:
-    outputManager();
-    ~outputManager();
-    void initialize();
+	outputManager();
+	~outputManager();
+	void fetchData(int level, std::string content);
 private:
-    CSVWriting _CSVWriting;
-    logWriting _logWriting;
-    consoleWriting _consoleWriting;
+	CSVWriting _CSVWriting;
+	logWriting _logWriting;
+	consoleWriting _consoleWriting;
+	std::string folderPath;
 };
 
 #endif
