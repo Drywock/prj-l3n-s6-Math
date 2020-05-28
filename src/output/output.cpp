@@ -18,10 +18,17 @@ void CSVWriting::writeToCSV(std::string content) {
 		CSVWriting::currentFileIncrement++;
 		CSVWriting::currentFileLines = 0;
 		CSVWriting::_file.open("./" + CSVWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".csv");
+		for (size_t i = 0; i < 100; i++)
+		{
+			if (i > 0) {
+				CSVWriting::_file << ";";
+			}
+			CSVWriting::_file << "u" << i;
+		}
+		CSVWriting::_file << "\n";
 	}
-	else if (CSVWriting::currentFileIncrement == 0) {
-		//to have 1 line with 3 cells = "case A;case B;Case C\n", separate lines with \n and cells with ;
-	}
+		//to have 1 line with 3 cells = "case A;case B;Case C\n", separate lines with \n (dealt here) and cells with ;
+	CSVWriting::_file<<content<<"\n";
 }
 
 void CSVWriting::setFolderName(std::string folderName)
@@ -53,6 +60,11 @@ void logWriting::writeToLog(std::string content)
 		logWriting::currentFileIncrement++;
 		logWriting::currentFileLines = 0;
 		logWriting::_file.open("./" + logWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".txt");
+		logWriting::_file << "results " 
+				  << MAXLINES * (currentFileIncrement - 1) 
+				  << " to " 
+				  << MAXLINES * currentFileIncrement + MAXLINES 
+				  << "\n";
 	}
 	logWriting::_file << content << "\n";
 }
