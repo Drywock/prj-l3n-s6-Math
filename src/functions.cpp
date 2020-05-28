@@ -5,9 +5,9 @@
 #include "functions.h"
 #include "time/time.h"
 
-bool isPrime(int n) {
-	int max = std::sqrt(n);
-	for (int i = 2; i <= max; i++) {
+bool isPrime(uint64_t n) {
+	uint64_t max = std::sqrt(n);
+	for (uint64_t i = 2; i <= max; i++) {
 		if ((n % i) == 0) {
 			return false;
 		}
@@ -15,7 +15,7 @@ bool isPrime(int n) {
 	return true;
 }
 
-int gcd(int a, int b)
+uint64_t gcd(uint64_t a, uint64_t b)
 {
 	if (b == 0) {
 		return a;
@@ -23,4 +23,8 @@ int gcd(int a, int b)
 	else {
 		return gcd(b, a % b);
 	}
+}
+
+bool absolute(uint64_t a){
+	return (a>0)?a:-a;
 }

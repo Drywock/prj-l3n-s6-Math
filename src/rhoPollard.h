@@ -3,17 +3,17 @@
 
 #include <vector>
 
-class rhoPollard
+class RhoPollard
 {
 public:
 
-	std::vector<int> getFactors(int n);
+	std::vector<uint64_t> getFactors(const uint64_t &n);
 
 private:
-	void factorize(int n);
-	int getDivisor(int n);
+	void factorize(const uint64_t &n);
+	uint64_t getDivisor(const uint64_t &n);
 	void showFactors();
-	std::vector<int> factors;
+	std::vector<uint64_t> factors;
 };
 
 #endif

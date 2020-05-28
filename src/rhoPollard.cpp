@@ -6,22 +6,23 @@
 #include "rhoPollard.h"
 #include "functions.h"
 #include "time/time.h"
-int rhoPollard::getDivisor(int n) {
-	int x = std::rand() % n + 1;
-	int y = x;
-	int g = 1;
+
+uint64_t RhoPollard::getDivisor(const uint64_t &n) {
+	uint64_t x = std::rand() % n + 1;
+	uint64_t y = x;
+	uint64_t g = 1;
 	//fn is f(x) = x*x + random between 0 and n+1
 	while (g == 1)
 	{
 		x = ((x * x) + std::rand() % (n + 1)) % (n);
 		y = ((y * y) + std::rand() % (n + 1));
 		y = ((y * y) + std::rand() % (n + 1)) % (n);
-		g = gcd(std::abs(x - y), n);
+		g = gcd(absolute(x - y), n);
 	}
 	return g;
 }
 
-void rhoPollard::factorize(int n)
+void RhoPollard::factorize(const uint64_t &n)
 {
 	//std::cout<<"factorization of "<<n<<" ";
 
@@ -31,27 +32,27 @@ void rhoPollard::factorize(int n)
 
 	if (isPrime(n))
 	{
-		if (!std::count(rhoPollard::factors.begin(), rhoPollard::factors.end(), n)) {
-			rhoPollard::factors.push_back(n);
+		if (!std::count(RhoPollard::factors.begin(), RhoPollard::factors.end(), n)) {
+			RhoPollard::factors.push_back(n);
 		}
 		return;
 	}
 
 	int divisor;
-	divisor = rhoPollard::getDivisor(n);
-	rhoPollard::factorize(divisor);
-	rhoPollard::factorize(n / divisor);
+	divisor = RhoPollard::getDivisor(n);
+	RhoPollard::factorize(divisor);
+	RhoPollard::factorize(n / divisor);
 }
 
-void rhoPollard::showFactors() {
-	for (int i = 0; i != rhoPollard::factors.size(); ++i)
+void RhoPollard::showFactors() {
+	for (int i = 0; i != RhoPollard::factors.size(); ++i)
 	{
-		std::cout << rhoPollard::factors[i] << " ";
+		std::cout << RhoPollard::factors[i] << " ";
 	}
 }
 
-std::vector<int> rhoPollard::getFactors(int n) {
-	rhoPollard::factors.clear();
-	rhoPollard::factorize(n);
-	return rhoPollard::factors;
+std::vector<uint64_t> RhoPollard::getFactors(const uint64_t &n) {
+	RhoPollard::factors.clear();
+	RhoPollard::factorize(n);
+	return RhoPollard::factors;
 }

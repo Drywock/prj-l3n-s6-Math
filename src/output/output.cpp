@@ -131,7 +131,7 @@ void outputManager::fetchData(int level, std::string content)
 	case 3:
 		outputManager::_consoleWriting.formatAndWrite(content);
 		break;
-	case 3:
+	case 4:
 		outputManager::_consoleWriting.formatAndWrite(content);
 		outputManager::_CSVWriting.writeToCSV(content);
 		break;
