@@ -8,38 +8,38 @@
 #include <set>
 #include "time/time.h"
 
-void calcDividers(std::set<uint64_t> &dividers, const std::vector<uint64_t> &availbleValues, const size_t &depth, const uint64_t &value = 1);
+void calcDividers(std::set<uint64_t>& dividers, const std::vector<uint64_t>& availbleValues, const size_t& depth, const uint64_t& value = 1);
 
-uint64_t sumAllCombination(const std::vector<uint64_t> &primaryDecompostion)
+uint64_t sumAllCombination(const std::vector<uint64_t>& primaryDecompostion)
 {
-    TIME(Sum_all_dividers);
-    uint64_t n = 1;
-    uint64_t sum = 0;
-    std::set<uint64_t> dividers;
+	//TIME(Sum_all_dividers);
+	uint64_t n = 1;
+	uint64_t sum = 0;
+	std::set<uint64_t> dividers;
 
-    calcDividers(dividers, primaryDecompostion, primaryDecompostion.size());
+	calcDividers(dividers, primaryDecompostion, primaryDecompostion.size());
 
-    for(auto divider : dividers) 
-    {
-        sum+= divider;
-    }
+	for (auto divider : dividers)
+	{
+		sum += divider;
+	}
 
-    return sum;
+	return sum;
 }
 
-void calcDividers(std::set<uint64_t> &dividers, const std::vector<uint64_t> &availbleValues, const size_t &depth, const uint64_t &value) {
-    if(depth <= 0) return;
+void calcDividers(std::set<uint64_t>& dividers, const std::vector<uint64_t>& availbleValues, const size_t& depth, const uint64_t& value) {
+	if (depth <= 0) return;
 
-    for(auto element : availbleValues) {
-        uint64_t newValue = value * element;
+	for (auto element : availbleValues) {
+		uint64_t newValue = value * element;
 
-        std::vector<uint64_t> newAvailableValues(availbleValues);
-        auto index = std::find(newAvailableValues.begin(), newAvailableValues.end(), element);
-        newAvailableValues.erase(index);
+		std::vector<uint64_t> newAvailableValues(availbleValues);
+		auto index = std::find(newAvailableValues.begin(), newAvailableValues.end(), element);
+		newAvailableValues.erase(index);
 
-        dividers.insert(newValue);
-        calcDividers(dividers, newAvailableValues, depth - 1, newValue);
-    }
+		dividers.insert(newValue);
+		calcDividers(dividers, newAvailableValues, depth - 1, newValue);
+	}
 }
 
 bool isPrime(uint64_t n) {
@@ -54,7 +54,6 @@ bool isPrime(uint64_t n) {
 
 uint64_t gcd(uint64_t a, uint64_t b)
 {
-
 	if (b == 0) {
 		return a;
 	}
@@ -63,11 +62,11 @@ uint64_t gcd(uint64_t a, uint64_t b)
 	}
 }
 
-uint64_t absoluteDiff(uint64_t a, uint64_t b){
-	if(a>=b){
-		return a-b;
+uint64_t absoluteDiff(uint64_t a, uint64_t b) {
+	if (a >= b) {
+		return a - b;
 	}
-	else{
-		return b-a;
+	else {
+		return b - a;
 	}
 }

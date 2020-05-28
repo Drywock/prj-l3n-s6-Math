@@ -25,31 +25,28 @@ private:
 
 struct Buffer {
 	std::queue<std::string> lines;
-	std::queue<int> level;
-	int position;
-	int readPosition;
+	std::queue<OutputManager::Levels> level;
 	bool has_been_modified;
 	SLock lock;
+	Buffer() {
+	}
 };
 
 struct Data {
 	std::string content;
-	int level;
+	OutputManager::Levels level;
 };
 
 class OutputEventHandler {
 public:
-	OutputEventHandler();
-	~OutputEventHandler();
-
-	void writeDataToBuffer(int level, std::string content);
-	Data readDateFromBuffer();
-
-	//TODO
-	void catchEventBufferModified();
+	static void worker();
+	static void writeDataToBuffer(OutputManager::Levels level, std::string content);
+	static Data readDateFromBuffer();
+	static void stopWorker();
 private:
-	Buffer _Buffer;
-	OutputManager _manager;
+	static bool _stop;
+	static Buffer _Buffer;
+	static OutputManager _manager;
 };
 
 #endif

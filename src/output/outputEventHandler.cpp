@@ -5,18 +5,16 @@
 #include <queue>
 #include <algorithm>
 #include <mutex>
+#include <thread>
 #include "outputEventHandler.h"
 #include "../time/time.h"
 #include "output.h"
 
-OutputEventHandler::OutputEventHandler() {
-	OutputEventHandler::_Buffer;
-}
+Buffer OutputEventHandler::_Buffer;
+OutputManager OutputEventHandler::_manager;
+bool OutputEventHandler::_stop = false;
 
-OutputEventHandler::~OutputEventHandler() {
-}
-
-void OutputEventHandler::writeDataToBuffer(int level, std::string content) {
+void OutputEventHandler::writeDataToBuffer(OutputManager::Levels level, std::string content) {
 	//lock the access
 	OutputEventHandler::_Buffer.lock.lock();
 
@@ -33,14 +31,29 @@ Data OutputEventHandler::readDateFromBuffer() {
 
 	std::string content = OutputEventHandler::_Buffer.lines.front();
 	OutputEventHandler::_Buffer.lines.pop();
-	int level = OutputEventHandler::_Buffer.level.front();
+	OutputManager::Levels level = OutputEventHandler::_Buffer.level.front();
 	OutputEventHandler::_Buffer.level.pop();
+	if (OutputEventHandler::_Buffer.level.empty() && OutputEventHandler::_Buffer.lines.empty()) {
+		OutputEventHandler::_Buffer.has_been_modified = false;
+	}
 	//unlock the access
 	OutputEventHandler::_Buffer.lock.unlock();
 	return { content, level };
 }
-//TODO
-void OutputEventHandler::catchEventBufferModified() {
-	Data data = readDateFromBuffer();
-	OutputEventHandler::_manager.fetchData(data.level, data.content);
+
+void OutputEventHandler::worker() {
+	OutputEventHandler::_stop = false;
+	do {
+		if (OutputEventHandler::_Buffer.has_been_modified) {
+			Data data = readDateFromBuffer();
+			OutputEventHandler::_manager.fetchData(data.level, data.content);
+		}
+	} while (!(OutputEventHandler::_stop) && OutputEventHandler::_Buffer.has_been_modified);
+}
+
+void OutputEventHandler::stopWorker() {
+	while (OutputEventHandler::_Buffer.has_been_modified)
+	{
+	}
+	OutputEventHandler::_stop = true;
 }

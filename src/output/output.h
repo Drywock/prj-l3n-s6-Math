@@ -1,7 +1,7 @@
 #ifndef OUTPUT
 #define OUTPUT
 
-#define MAXLINES 30000
+#define MAXLINES 15000
 
 #include <fstream>
 class CSVWriting {
@@ -41,9 +41,16 @@ private:
 
 class OutputManager {
 public:
+	enum Levels
+	{
+		LOG_CONSOLE,
+		CSV,
+		CONSOLE,
+		CSV_CONSOLE
+	};
 	OutputManager();
 	~OutputManager();
-	void fetchData(int level, std::string content);
+	void fetchData(Levels level, std::string content);
 private:
 	CSVWriting _CSVWriting;
 	LogWriting _logWriting;

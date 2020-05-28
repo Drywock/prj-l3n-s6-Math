@@ -7,7 +7,7 @@
 #include "functions.h"
 #include "time/time.h"
 
-uint64_t RhoPollard::getDivisor(const uint64_t &n) {
+uint64_t RhoPollard::getDivisor(const uint64_t& n) {
 	uint64_t x = std::rand() % n + 1;
 	uint64_t y = x;
 	uint64_t g = 1;
@@ -22,7 +22,7 @@ uint64_t RhoPollard::getDivisor(const uint64_t &n) {
 	return g;
 }
 
-void RhoPollard::factorize(const uint64_t &n)
+void RhoPollard::factorize(const uint64_t& n)
 {
 	//std::cout<<"factorization of "<<n<<" ";
 
@@ -51,7 +51,7 @@ void RhoPollard::showFactors() {
 	}
 }
 
-std::vector<uint64_t> RhoPollard::getFactors(const uint64_t &n) {
+std::vector<uint64_t> RhoPollard::getFactors(const uint64_t& n) {
 	RhoPollard::factors.clear();
 	RhoPollard::factorize(n);
 	return RhoPollard::factors;
