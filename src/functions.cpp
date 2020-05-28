@@ -12,7 +12,7 @@ void calcDividers(std::set<uint64_t> &dividers, const std::vector<uint64_t> &ava
 
 uint64_t sumAllCombination(const std::vector<uint64_t> &primaryDecompostion)
 {
-    TIME("Sum all dividers");
+    TIME(Sum_all_dividers);
     uint64_t n = 1;
     uint64_t sum = 0;
     std::set<uint64_t> dividers;

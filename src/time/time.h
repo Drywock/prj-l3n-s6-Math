@@ -9,7 +9,7 @@
 Instrumentor::Get().BeginSession(name)
 
 #define TIME_END_SESSION Instrumentor::Get().EndSession()
-#define TIME(name) InstrumentationTimer timer(name)
+#define TIME(name) InstrumentationTimer timer_name(#name)
 
 struct ProfileResult
 {
