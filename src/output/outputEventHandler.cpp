@@ -9,38 +9,38 @@
 #include "time/time.h"
 #include "output.h"
 
-outputEventHandler::outputEventHandler(int threadAmount) {
-	outputEventHandler::_Buffer;
+OutputEventHandler::OutputEventHandler() {
+	OutputEventHandler::_Buffer;
 }
 
-outputEventHandler::~outputEventHandler() {
+OutputEventHandler::~OutputEventHandler() {
 }
 
-void outputEventHandler::writeDataToBuffer(int threadID, int level, std::string content) {
+void OutputEventHandler::writeDataToBuffer(int level, std::string content) {
 	//lock the access
-	outputEventHandler::_Buffer.lock.lock();
+	OutputEventHandler::_Buffer.lock.lock();
 
-	outputEventHandler::_Buffer.lines.push(content);
-	outputEventHandler::_Buffer.level.push(level);
-	outputEventHandler::_Buffer.has_been_modified = true;
+	OutputEventHandler::_Buffer.lines.push(content);
+	OutputEventHandler::_Buffer.level.push(level);
+	OutputEventHandler::_Buffer.has_been_modified = true;
 	//unlock the access
-	outputEventHandler::_Buffer.lock.unlock();
+	OutputEventHandler::_Buffer.lock.unlock();
 }
 
-Data outputEventHandler::readDateFromBuffer() {
+Data OutputEventHandler::readDateFromBuffer() {
 	//lock the access
-	outputEventHandler::_Buffer.lock.lock();
+	OutputEventHandler::_Buffer.lock.lock();
 
-	std::string content = outputEventHandler::_Buffer.lines.front();
-	outputEventHandler::_Buffer.lines.pop();
-	int level = outputEventHandler::_Buffer.level.front();
-	outputEventHandler::_Buffer.level.pop();
+	std::string content = OutputEventHandler::_Buffer.lines.front();
+	OutputEventHandler::_Buffer.lines.pop();
+	int level = OutputEventHandler::_Buffer.level.front();
+	OutputEventHandler::_Buffer.level.pop();
 	//unlock the access
-	outputEventHandler::_Buffer.lock.unlock();
+	OutputEventHandler::_Buffer.lock.unlock();
 	return { content, level };
 }
 //TODO
-void outputEventHandler::catchEventBufferModified() {
+void OutputEventHandler::catchEventBufferModified() {
 	Data data = readDateFromBuffer();
-	outputEventHandler::_manager.fetchData(data.level, data.content);
+	OutputEventHandler::_manager.fetchData(data.level, data.content);
 }

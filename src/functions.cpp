@@ -63,6 +63,11 @@ uint64_t gcd(uint64_t a, uint64_t b)
 	}
 }
 
-uint64_t absolute(uint64_t a){
-	return (a>0)?a:-a;
+uint64_t absoluteDiff(uint64_t a, uint64_t b){
+	if(a>=b){
+		return a-b;
+	}
+	else{
+		return b-a;
+	}
 }

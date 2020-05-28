@@ -7,9 +7,9 @@
 #include "time/time.h"
 
 //LEVELS : 	1 is writing to log file and console
-//		2 is writing to CSV only
-//		3 is writing to console only
-//		4 is writing to CSV and console
+//			2 is writing to CSV only
+//			3 is writing to console only
+//			4 is writing to CSV and console
 
 CSVWriting::CSVWriting() {
 	CSVWriting::currentFileIncrement = 1;
@@ -50,46 +50,46 @@ void CSVWriting::setFolderName(std::string folderName)
 	CSVWriting::_file << "\n";
 }
 
-logWriting::logWriting() {
-	logWriting::currentFileIncrement = 1;
-	logWriting::currentFileLines = 0;
-	logWriting::_file.open("");
+LogWriting::LogWriting() {
+	LogWriting::currentFileIncrement = 1;
+	LogWriting::currentFileLines = 0;
+	LogWriting::_file.open("");
 }
 
-logWriting::~logWriting() {}
+LogWriting::~LogWriting() {}
 
-void logWriting::writeToLog(std::string content)
+void LogWriting::writeToLog(std::string content)
 {
-	if (logWriting::currentFileLines >= MAXLINES) {
-		logWriting::_file.close();
-		logWriting::currentFileIncrement++;
-		logWriting::currentFileLines = 0;
-		logWriting::_file.open("./" + logWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".txt");
-		logWriting::_file << "results " 
+	if (LogWriting::currentFileLines >= MAXLINES) {
+		LogWriting::_file.close();
+		LogWriting::currentFileIncrement++;
+		LogWriting::currentFileLines = 0;
+		LogWriting::_file.open("./" + LogWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".txt");
+		LogWriting::_file << "results " 
 				  << MAXLINES * (currentFileIncrement - 1) 
 				  << " to " 
 				  << MAXLINES * currentFileIncrement + MAXLINES 
 				  << "\n";
 	}
-	logWriting::_file << content << "\n";
+	LogWriting::_file << content << "\n";
 }
 
-void logWriting::setFolderName(std::string folderName)
+void LogWriting::setFolderName(std::string folderName)
 {
-	logWriting::folderPath = folderName;
-	logWriting::_file.open("./" + logWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".txt");
-	logWriting::_file << "results " << MAXLINES * (currentFileIncrement - 1) << " to " << MAXLINES * currentFileIncrement + MAXLINES << "\n";
+	LogWriting::folderPath = folderName;
+	LogWriting::_file.open("./" + LogWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".txt");
+	LogWriting::_file << "results " << MAXLINES * (currentFileIncrement - 1) << " to " << MAXLINES * currentFileIncrement + MAXLINES << "\n";
 }
 
-consoleWriting::consoleWriting() {}
-consoleWriting::~consoleWriting() {}
+ConsoleWriting::ConsoleWriting() {}
+ConsoleWriting::~ConsoleWriting() {}
 
-void consoleWriting::formatAndWrite(std::string content)
+void ConsoleWriting::formatAndWrite(std::string content)
 {
 	std::cout << content << "\n";
 }
 
-outputManager::outputManager()
+OutputManager::OutputManager()
 {
 	//attempt to have unique names for every run
 	/*time_t currentTime = time(0);
@@ -109,33 +109,33 @@ outputManager::outputManager()
 	else {
 		//directory already exists
 	}
-	outputManager::_CSVWriting.setFolderName(folderPath);
-	outputManager::_logWriting.setFolderName(folderPath);
+	OutputManager::_CSVWriting.setFolderName(folderPath);
+	OutputManager::_logWriting.setFolderName(folderPath);
 }
 
-outputManager::~outputManager()
+OutputManager::~OutputManager()
 {
 }
 
-void outputManager::fetchData(int level, std::string content)
+void OutputManager::fetchData(int level, std::string content)
 {
 	switch (level)
 	{
 	case 1:
-		outputManager::_consoleWriting.formatAndWrite(content);
-		outputManager::_logWriting.writeToLog(content);
+		OutputManager::_consoleWriting.formatAndWrite(content);
+		OutputManager::_logWriting.writeToLog(content);
 		break;
 	case 2:
-		outputManager::_CSVWriting.writeToCSV(content);
+		OutputManager::_CSVWriting.writeToCSV(content);
 		break;
 	case 3:
-		outputManager::_consoleWriting.formatAndWrite(content);
+		OutputManager::_consoleWriting.formatAndWrite(content);
 		break;
 	case 4:
-		outputManager::_consoleWriting.formatAndWrite(content);
-		outputManager::_CSVWriting.writeToCSV(content);
+		OutputManager::_consoleWriting.formatAndWrite(content);
+		OutputManager::_CSVWriting.writeToCSV(content);
 		break;
-	default:outputManager::_consoleWriting.formatAndWrite("Output Manager:error while fetching the data");
+	default:OutputManager::_consoleWriting.formatAndWrite("Output Manager:error while fetching the data");
 		break;
 	}
 }

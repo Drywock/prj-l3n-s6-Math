@@ -36,19 +36,19 @@ private:
 	std::mutex lck;
 };
 
-class outputEventHandler {
+class OutputEventHandler {
 public:
-	outputEventHandler(int threadAmount);
-	~outputEventHandler();
+	OutputEventHandler();
+	~OutputEventHandler();
 
-	void writeDataToBuffer(int threadID, int level, std::string content);
+	void writeDataToBuffer(int level, std::string content);
 	Data readDateFromBuffer();
 
 	//TODO
 	void catchEventBufferModified();
 private:
 	Buffer _Buffer;
-	outputManager _manager;
+	OutputManager _manager;
 };
 
 #endif
