@@ -2,8 +2,7 @@
 
 ## To Do
 ### Zénon
-- [ ] Rho Pollard
-- [ ] Conversion Rho Fonction f
+- [x] Rho Pollard
 - [ ] Sortie console
 - [ ] Log dans fichier (sortie console legerement remise en forme)
 - [ ] formattage sortie en csv (pour le tableau 1er sauvages)
