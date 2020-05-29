@@ -38,7 +38,7 @@ void RhoPollard::factorize(const uint64_t& n)
 		return;
 	}
 
-	int divisor;
+	uint64_t divisor;
 	divisor = RhoPollard::getDivisor(n);
 	RhoPollard::factorize(divisor);
 	RhoPollard::factorize(n / divisor);

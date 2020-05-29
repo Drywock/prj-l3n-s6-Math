@@ -18,7 +18,7 @@ CSVWriting::CSVWriting() {
 }
 CSVWriting::~CSVWriting() {}
 
-void CSVWriting::writeToCSV(std::string content) {
+void CSVWriting::writeToCSV(const std::string& content) {
 	if (CSVWriting::currentFileLines >= MAXLINES) {
 		CSVWriting::currentFileIncrement++;
 		CSVWriting::currentFileLines = 0;
@@ -38,13 +38,13 @@ void CSVWriting::writeToCSV(std::string content) {
 	else {
 		CSVWriting::_file.open("./" + CSVWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".csv", std::ios::out | std::ios::app);
 		CSVWriting::_file << content << "\n";
-		CSVWriting::currentFileLines++;
+		CSVWriting::currentFileLines += FILESTREATED;
 		CSVWriting::_file.close();
 	}
 	//to have 1 line with 3 cells = "case A;case B;Case C\n", separate lines with \n (dealt here) and cells with ;
 }
 
-void CSVWriting::setFolderName(std::string folderName)
+void CSVWriting::setFolderName(const std::string& folderName)
 {
 	CSVWriting::folderPath = folderName;
 	CSVWriting::_file.open("./" + CSVWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".csv");
@@ -67,7 +67,7 @@ LogWriting::LogWriting() {
 
 LogWriting::~LogWriting() {}
 
-void LogWriting::writeToLog(std::string content)
+void LogWriting::writeToLog(const std::string& content)
 {
 	if (LogWriting::currentFileLines >= MAXLINES) {
 		LogWriting::_file.close();
@@ -77,7 +77,7 @@ void LogWriting::writeToLog(std::string content)
 		LogWriting::_file << "results "
 			<< MAXLINES * (currentFileIncrement - 1)
 			<< " to "
-			<< MAXLINES * currentFileIncrement + MAXLINES
+			<< MAXLINES * (currentFileIncrement - 1) + MAXLINES
 			<< "\n";
 		LogWriting::_file << content << "\n";
 		LogWriting::currentFileLines++;
@@ -86,12 +86,12 @@ void LogWriting::writeToLog(std::string content)
 	else {
 		LogWriting::_file.open("./" + LogWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".txt", std::ios::out | std::ios::app);
 		LogWriting::_file << content << "\n";
-		LogWriting::currentFileLines++;
+		LogWriting::currentFileLines += FILESTREATED;
 		LogWriting::_file.close();
 	}
 }
 
-void LogWriting::setFolderName(std::string folderName)
+void LogWriting::setFolderName(const std::string& folderName)
 {
 	LogWriting::folderPath = folderName;
 	LogWriting::_file.open("./" + LogWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".txt");
@@ -101,7 +101,7 @@ void LogWriting::setFolderName(std::string folderName)
 ConsoleWriting::ConsoleWriting() {}
 ConsoleWriting::~ConsoleWriting() {}
 
-void ConsoleWriting::formatAndWrite(std::string content)
+void ConsoleWriting::formatAndWrite(const std::string& content)
 {
 	std::cout << content << "\n";
 }
@@ -117,7 +117,7 @@ OutputManager::~OutputManager()
 {
 }
 
-void OutputManager::fetchData(Levels level, std::string content)
+void OutputManager::fetchData(const Levels& level, const std::string& content)
 {
 	switch (level)
 	{

@@ -1,15 +1,16 @@
 #ifndef OUTPUT
 #define OUTPUT
 
-#define MAXLINES 15000
+#define MAXLINES 20000
+#define FILESTREATED 10000
 
 #include <fstream>
 class CSVWriting {
 public:
 	CSVWriting();
 	~CSVWriting();
-	void writeToCSV(std::string content);
-	void setFolderName(std::string folderName);
+	void writeToCSV(const std::string& content);
+	void setFolderName(const std::string& folderName);
 private:
 
 	std::ofstream _file;
@@ -22,8 +23,8 @@ class LogWriting {
 public:
 	LogWriting();
 	~LogWriting();
-	void writeToLog(std::string content);
-	void setFolderName(std::string folderName);
+	void writeToLog(const std::string& content);
+	void setFolderName(const std::string& folderName);
 private:
 	std::ofstream _file;
 	std::string folderPath;
@@ -35,7 +36,7 @@ class ConsoleWriting {
 public:
 	ConsoleWriting();
 	~ConsoleWriting();
-	void formatAndWrite(std::string content);
+	void formatAndWrite(const std::string& content);
 private:
 };
 
@@ -50,7 +51,7 @@ public:
 	};
 	OutputManager();
 	~OutputManager();
-	void fetchData(Levels level, std::string content);
+	void fetchData(const Levels& level, const std::string& content);
 private:
 	CSVWriting _CSVWriting;
 	LogWriting _logWriting;

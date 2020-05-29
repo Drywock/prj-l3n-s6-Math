@@ -14,7 +14,7 @@ Buffer OutputEventHandler::_Buffer;
 OutputManager OutputEventHandler::_manager;
 bool OutputEventHandler::_stop = false;
 
-void OutputEventHandler::writeDataToBuffer(OutputManager::Levels level, std::string content) {
+void OutputEventHandler::writeDataToBuffer(const OutputManager::Levels& level, const std::string& content) {
 	//lock the access
 	OutputEventHandler::_Buffer.lock.lock();
 
@@ -44,8 +44,18 @@ Data OutputEventHandler::readDateFromBuffer() {
 void OutputEventHandler::worker() {
 	OutputEventHandler::_stop = false;
 	do {
-		if (OutputEventHandler::_Buffer.has_been_modified) {
-			Data data = readDateFromBuffer();
+		if (OutputEventHandler::_Buffer.has_been_modified && (OutputEventHandler::_Buffer.lines.size() > FILESTREATED || OutputEventHandler::_stop)) {
+			Data data;
+			for (size_t i = 0; i < FILESTREATED; i++)
+			{
+				Data temp = readDateFromBuffer();
+
+				data.level = temp.level;
+				data.content += temp.content;
+				if (i < (FILESTREATED - 1)) {
+					data.content += "\n";
+				}
+			}
 			OutputEventHandler::_manager.fetchData(data.level, data.content);
 		}
 	} while (!(OutputEventHandler::_stop) && OutputEventHandler::_Buffer.has_been_modified);

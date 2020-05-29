@@ -29,6 +29,7 @@ struct Buffer {
 	bool has_been_modified;
 	SLock lock;
 	Buffer() {
+		has_been_modified = false;
 	}
 };
 
@@ -40,7 +41,7 @@ struct Data {
 class OutputEventHandler {
 public:
 	static void worker();
-	static void writeDataToBuffer(OutputManager::Levels level, std::string content);
+	static void writeDataToBuffer(const OutputManager::Levels& level, const std::string& content);
 	static Data readDateFromBuffer();
 	static void stopWorker();
 private:
