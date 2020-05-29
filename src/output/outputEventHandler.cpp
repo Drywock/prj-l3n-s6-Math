@@ -20,7 +20,7 @@ void OutputEventHandler::writeDataToBuffer(const OutputManager::Levels& level, c
 
 	OutputEventHandler::_Buffer.lines.push(content);
 	OutputEventHandler::_Buffer.level.push(level);
-	OutputEventHandler::_Buffer.has_been_modified = true;
+	OutputEventHandler::_Buffer.isNotEmpty = true;
 	//unlock the access
 	OutputEventHandler::_Buffer.lock.unlock();
 }
@@ -33,37 +33,43 @@ Data OutputEventHandler::readDateFromBuffer() {
 	OutputEventHandler::_Buffer.lines.pop();
 	OutputManager::Levels level = OutputEventHandler::_Buffer.level.front();
 	OutputEventHandler::_Buffer.level.pop();
+
 	if (OutputEventHandler::_Buffer.level.empty() && OutputEventHandler::_Buffer.lines.empty()) {
-		OutputEventHandler::_Buffer.has_been_modified = false;
+		OutputEventHandler::_Buffer.isNotEmpty = false;
 	}
+
 	//unlock the access
 	OutputEventHandler::_Buffer.lock.unlock();
 	return { content, level };
 }
 
 void OutputEventHandler::worker() {
-	OutputEventHandler::_stop = false;
 	do {
-		if (OutputEventHandler::_Buffer.has_been_modified && (OutputEventHandler::_Buffer.lines.size() > FILESTREATED || OutputEventHandler::_stop)) {
+		using namespace std::chrono_literals;
+		std::this_thread::sleep_for(1us);
+		if (OutputEventHandler::_Buffer.lines.size() >= FILESTREATED || (OutputEventHandler::_Buffer.lines.size() < FILESTREATED && OutputEventHandler::_stop)) {
+			if ((OutputEventHandler::_Buffer.lines.size() < FILESTREATED && OutputEventHandler::_stop)) {
+				std::cout << "dump buffer\n";
+			}
+
 			Data data;
-			for (size_t i = 0; i < FILESTREATED; i++)
+
+			size_t iter = (OutputEventHandler::_Buffer.lines.size() >= FILESTREATED) ? FILESTREATED : OutputEventHandler::_Buffer.lines.size();
+			data.level = OutputManager::CSV;
+			for (size_t i = 0; i < iter; i++)
 			{
 				Data temp = readDateFromBuffer();
 
-				data.level = temp.level;
 				data.content += temp.content;
-				if (i < (FILESTREATED - 1)) {
+				if (i < (iter - 1)) {
 					data.content += "\n";
 				}
 			}
 			OutputEventHandler::_manager.fetchData(data.level, data.content);
 		}
-	} while (!(OutputEventHandler::_stop) && OutputEventHandler::_Buffer.has_been_modified);
+	} while (!(OutputEventHandler::_stop) || OutputEventHandler::_Buffer.isNotEmpty);
 }
 
 void OutputEventHandler::stopWorker() {
-	while (OutputEventHandler::_Buffer.has_been_modified)
-	{
-	}
 	OutputEventHandler::_stop = true;
 }

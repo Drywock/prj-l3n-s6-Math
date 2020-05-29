@@ -10,7 +10,7 @@
 std::map<uint64_t, uint64_t>* g_results = new std::map<uint64_t, uint64_t>;
 
 uint64_t f_rho_Pollard(const uint64_t& n) {
-	TIME(f_rho_Pollard);
+	//TIME(f_rho_Pollard);
 	int64_t result;
 
 	if (g_results->count(n)) {

@@ -47,7 +47,8 @@ public:
 		LOG_CONSOLE,
 		CSV,
 		CONSOLE,
-		CSV_CONSOLE
+		CSV_CONSOLE,
+		NONE
 	};
 	OutputManager();
 	~OutputManager();

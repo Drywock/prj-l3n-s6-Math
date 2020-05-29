@@ -26,10 +26,10 @@ private:
 struct Buffer {
 	std::queue<std::string> lines;
 	std::queue<OutputManager::Levels> level;
-	bool has_been_modified;
+	bool isNotEmpty;
 	SLock lock;
 	Buffer() {
-		has_been_modified = false;
+		isNotEmpty = false;
 	}
 };
 

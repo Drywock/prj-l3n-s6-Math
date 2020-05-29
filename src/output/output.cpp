@@ -135,6 +135,7 @@ void OutputManager::fetchData(const Levels& level, const std::string& content)
 		OutputManager::_consoleWriting.formatAndWrite(content);
 		OutputManager::_CSVWriting.writeToCSV(content);
 		break;
+	case Levels::NONE:break;
 	default:OutputManager::_consoleWriting.formatAndWrite("Output Manager:error while fetching the data");
 		break;
 	}
