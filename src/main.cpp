@@ -7,9 +7,16 @@
 #include "output/output.h"
 #include "f.h"
 
-#define MAX_N 250000
+#define START 2
+#define MAX_N 100000000
 
 int main() {
+	uint64_t start = 0;
+	uint64_t max_n = 0;
+	std::cout << "star value : ";
+	std::cin >> start;
+	std::cout << "max value : ";
+	std::cin >> max_n;
 	TIME_INIT_SESSION("Global timing");
 	{
 		TIME(main);
@@ -18,7 +25,7 @@ int main() {
 		out.writeDataToBuffer(3, "test");
 		*/
 		std::thread t(OutputEventHandler::worker);
-		for (uint64_t n = 2; n <= MAX_N; n++) {
+		for (uint64_t n = start; n <= max_n; n++) {
 			std::vector<uint64_t> uns;
 			uint64_t result = n;
 			uint64_t oldResult = 0;
