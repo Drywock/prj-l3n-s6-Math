@@ -51,7 +51,7 @@ int main() {
 			for (auto un : uns) {
 				result_str << ";" << un;
 			}
-			OutputEventHandler::writeDataToBuffer(OutputManager::Levels::NONE, result_str.str());
+			OutputEventHandler::writeDataToBuffer(OutputManager::Levels::CSV, result_str.str());
 		}
 		std::cout << "finished calculating";
 
