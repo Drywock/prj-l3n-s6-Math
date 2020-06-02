@@ -32,9 +32,7 @@ void RhoPollard::factorize(const uint64_t& n)
 
 	if (isPrime(n))
 	{
-		if (!std::count(RhoPollard::factors.begin(), RhoPollard::factors.end(), n)) {
-			RhoPollard::factors.push_back(n);
-		}
+        RhoPollard::factors.push_back(n);
 		return;
 	}
 
