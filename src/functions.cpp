@@ -4,42 +4,46 @@
 #include <numeric>
 #include <cmath>
 #include <vector>
+#include <map>
 #include <algorithm>
 #include <set>
 #include "time/time.h"
 
-void calcDividers(std::set<uint64_t>& dividers, const std::vector<uint64_t>& availbleValues, const size_t& depth, const uint64_t& value = 1);
+uint64_t power(const uint64_t &n, const uint64_t &exp) {
+    if(n == 0) return 1;
+    uint64_t res = n;
+    for(uint64_t i = 1; i < exp; i++) {
+        res *= n;
+    }
+    return res;
+}
 
 uint64_t sumAllCombination(const std::vector<uint64_t>& primaryDecompostion)
 {
-	//TIME(Sum_all_dividers);
+	TIME(Sum_all_dividers);
 	uint64_t n = 1;
-	uint64_t sum = 0;
-	std::set<uint64_t> dividers;
+	uint64_t sum = 1;
+    
+    std::map<uint64_t, uint64_t> primFactors({});
+    for (auto div : primaryDecompostion) {
+        if(primFactors.count(div) == 0){
+            primFactors[div] = 1;
+            }
+        else{
+            primFactors[div]++;
+        }
+    }
 
-	calcDividers(dividers, primaryDecompostion, primaryDecompostion.size());
-
-	for (auto divider : dividers)
+    uint64_t a, b, tot;
+	for (auto primFactor : primFactors)
 	{
-		sum += divider;
+        a = power(primFactor.first, primFactor.second + 1) - 1;
+        b =  primFactor.first - 1;
+        tot = a / b;
+		sum *= tot;
 	}
-
+    
 	return sum;
-}
-
-void calcDividers(std::set<uint64_t>& dividers, const std::vector<uint64_t>& availbleValues, const size_t& depth, const uint64_t& value) {
-	if (depth <= 0) return;
-
-	for (auto element : availbleValues) {
-		uint64_t newValue = value * element;
-
-		std::vector<uint64_t> newAvailableValues(availbleValues);
-		auto index = std::find(newAvailableValues.begin(), newAvailableValues.end(), element);
-		newAvailableValues.erase(index);
-
-		dividers.insert(newValue);
-		calcDividers(dividers, newAvailableValues, depth - 1, newValue);
-	}
 }
 
 bool isPrime(uint64_t n) {

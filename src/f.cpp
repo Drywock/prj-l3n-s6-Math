@@ -19,7 +19,7 @@ uint64_t f_rho_Pollard(const uint64_t& n) {
 
 	RhoPollard r;
 	std::vector<uint64_t> factors = r.getFactors(n);
-	result = sumAllCombination(factors);
+	result = sumAllCombination(factors) - 1;
 	(*g_results)[n] = result;
 	return result;
 }

@@ -44,7 +44,7 @@ int main() {
 			}
 			OutputEventHandler::writeDataToBuffer(OutputManager::Levels::CSV, result_str.str());
 		}
-		std::cout << "finished calculating";
+		std::cout << "finished calculating\n";
 
 		OutputEventHandler::stopWorker();
 		t.join();
