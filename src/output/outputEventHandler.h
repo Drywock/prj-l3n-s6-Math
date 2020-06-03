@@ -44,10 +44,11 @@ public:
 	static void writeDataToBuffer(const OutputManager::Levels& level, const std::string& content);
 	static Data readDateFromBuffer();
 	static void stopWorker();
+    static void initFolder(const std::string &path = "./results");
 private:
 	static bool _stop;
 	static Buffer _Buffer;
-	static OutputManager _manager;
+	static OutputManager *_manager;
 };
 
 #endif

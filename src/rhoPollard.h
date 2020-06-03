@@ -12,7 +12,7 @@ public:
 private:
 	void factorize(const uint64_t& n);
 	uint64_t getDivisor(const uint64_t& n);
-	void showFactors();
+	//void showFactors();
 	std::vector<uint64_t> factors;
 };
 

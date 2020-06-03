@@ -19,7 +19,7 @@ private:
 	int currentFileLines;
 };
 
-class LogWriting {
+/* class LogWriting {
 public:
 	LogWriting();
 	~LogWriting();
@@ -30,7 +30,7 @@ private:
 	std::string folderPath;
 	int currentFileIncrement;
 	int currentFileLines;
-};
+}; */
 
 class ConsoleWriting {
 public:
@@ -44,18 +44,18 @@ class OutputManager {
 public:
 	enum Levels
 	{
-		LOG_CONSOLE,
+		//LOG_CONSOLE,
 		CSV,
 		CONSOLE,
 		CSV_CONSOLE,
 		NONE
 	};
-	OutputManager();
+	OutputManager(const std::string &folderPath = "./results");
 	~OutputManager();
 	void fetchData(const Levels& level, const std::string& content);
 private:
 	CSVWriting _CSVWriting;
-	LogWriting _logWriting;
+	//LogWriting _logWriting;
 	ConsoleWriting _consoleWriting;
 	std::string folderPath;
 };

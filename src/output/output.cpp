@@ -59,7 +59,7 @@ void CSVWriting::setFolderName(const std::string& folderName)
 	CSVWriting::_file.close();
 }
 
-LogWriting::LogWriting() {
+/* LogWriting::LogWriting() {
 	LogWriting::currentFileIncrement = 1;
 	LogWriting::currentFileLines = 0;
 	LogWriting::_file.open("");
@@ -96,7 +96,7 @@ void LogWriting::setFolderName(const std::string& folderName)
 	LogWriting::folderPath = folderName;
 	LogWriting::_file.open("./" + LogWriting::folderPath + "/" + std::to_string(currentFileIncrement) + ".txt");
 	LogWriting::_file << "results " << MAXLINES * (currentFileIncrement - 1) << " to " << MAXLINES * currentFileIncrement + MAXLINES << "\n";
-}
+} */
 
 ConsoleWriting::ConsoleWriting() {}
 ConsoleWriting::~ConsoleWriting() {}
@@ -106,11 +106,10 @@ void ConsoleWriting::formatAndWrite(const std::string& content)
 	std::cout << content << "\n";
 }
 
-OutputManager::OutputManager()
+OutputManager::OutputManager(const std::string &folderPath)
 {
-	std::string folderPath = "./results";
 	OutputManager::_CSVWriting.setFolderName(folderPath);
-	OutputManager::_logWriting.setFolderName(folderPath);
+	//OutputManager::_logWriting.setFolderName(folderPath);
 }
 
 OutputManager::~OutputManager()
@@ -121,10 +120,10 @@ void OutputManager::fetchData(const Levels& level, const std::string& content)
 {
 	switch (level)
 	{
-	case Levels::LOG_CONSOLE:
+	/* case Levels::LOG_CONSOLE:
 		OutputManager::_consoleWriting.formatAndWrite(content);
-		OutputManager::_logWriting.writeToLog(content);
-		break;
+		//OutputManager::_logWriting.writeToLog(content);
+		break; */
 	case Levels::CSV:
 		OutputManager::_CSVWriting.writeToCSV(content);
 		break;

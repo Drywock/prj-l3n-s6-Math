@@ -10,8 +10,16 @@
 #include "../time/time.h"
 #include "output.h"
 
+#ifdef WINDOWS
+#include <direct.h>
+#endif
+
+#ifdef LINUX
+#include <sys/stat.h>
+#endif
+
 Buffer OutputEventHandler::_Buffer;
-OutputManager OutputEventHandler::_manager;
+OutputManager *  OutputEventHandler::_manager = nullptr;
 bool OutputEventHandler::_stop = false;
 
 void OutputEventHandler::writeDataToBuffer(const OutputManager::Levels& level, const std::string& content) {
@@ -65,11 +73,22 @@ void OutputEventHandler::worker() {
 					data.content += "\n";
 				}
 			}
-			OutputEventHandler::_manager.fetchData(data.level, data.content);
+			OutputEventHandler::_manager->fetchData(data.level, data.content);
 		}
 	} while (!(OutputEventHandler::_stop) || OutputEventHandler::_Buffer.isNotEmpty);
 }
 
 void OutputEventHandler::stopWorker() {
 	OutputEventHandler::_stop = true;
+}
+
+void OutputEventHandler::initFolder(const std::string &path)
+{
+    #ifdef LINUX
+    mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
+    #endif
+    #ifdef WINDOWS
+    mkdir(path.c_str());
+    #endif
+    _manager = new OutputManager(path);
 }

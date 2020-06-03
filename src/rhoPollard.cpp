@@ -42,12 +42,12 @@ void RhoPollard::factorize(const uint64_t& n)
 	RhoPollard::factorize(n / divisor);
 }
 
-void RhoPollard::showFactors() {
+/* void RhoPollard::showFactors() {
 	for (int i = 0; i != RhoPollard::factors.size(); ++i)
 	{
 		std::cout << RhoPollard::factors[i] << " ";
 	}
-}
+} */
 
 std::vector<uint64_t> RhoPollard::getFactors(const uint64_t& n) {
 	RhoPollard::factors.clear();
